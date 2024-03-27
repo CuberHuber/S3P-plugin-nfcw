@@ -1,0 +1,37 @@
+{
+"plugin": {
+    "reference": "nfcw",
+    "type": "SOURCE",
+    "filenames": ["nfcw.py"],
+    "localstorage": true
+},
+"task": {
+    "log": -1,
+    "trigger": {
+      "type": "SCHEDULE",
+      "interval": "7 days"
+    }
+},
+"middleware": {
+    "modules": [
+        { "order": 1, "name": "TimezoneSafeControl", "critical": true, "params": {}},
+        { "order": 2, "name": "FilterOnlyNewDocumentWithDB", "critical": true, "params": {}},
+        { "order": 3, "name": "SaveDocumentToDB", "critical": true, "params": {}}
+    ],
+    "bus": {
+        "entities": []
+    }
+},
+"payload": {
+    "file": "nfcw.py",
+    "class": "NFCW",
+    "entry": {
+        "point": "content",
+        "params": [
+          {"key": "webdriver", "value": {"type": "module", "name": "WebDriver", "bus": true}},
+          {"key": "max_count_documents", "value": {"type": "const", "name": 9999}}
+        ]
+    },
+    "additional_methods": null
+}
+}
